@@ -62,7 +62,7 @@
                                     </div>
 
                                 </div>
-                                <button type="submit" class="btn btn-rounded btn-info">Submit</button>
+                                <input type="submit" class="btn btn-rounded btn-info" value="Submit">
                             </div>
                     </form>
 
