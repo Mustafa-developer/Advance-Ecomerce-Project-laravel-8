@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Slider;
+use App\Models\MultiImg;
 use Illuminate\Support\Facades\Hash;
 
 class IndexController extends Controller
@@ -16,9 +17,13 @@ class IndexController extends Controller
     //
     public function index(){
         $products = Product::where('status' , 1)->orderBy('id','DESC')->limit(6)->get();
+        $featured = Product::where('featured' , 1)->where('status' , 1)->orderBy('id','DESC')->limit(6)->get();
+        $hot_deals = Product::where('hot_deals' , 1)->where('status' , 1)->orderBy('id','DESC')->limit(6)->get();
+        $special_offer = Product::where('special_offer' , 1)->where('status' , 1)->orderBy('id','DESC')->limit(4)->get();
+        $special_deals = Product::where('special_deals' , 1)->where('status' , 1)->orderBy('id','DESC')->limit(4)->get();
         $sliders = Slider::where('status' , 1)->orderBy('id','DESC')->limit(3)->get();
         $categories = Category::orderBy('category_name_en' ,'ASC')->get();
-        return view('frontend.index' ,compact('categories','sliders','products'));
+        return view('frontend.index' ,compact('categories','sliders','products','featured','hot_deals','special_offer','special_deals'));
     }
 
     public function UserLogout(){
@@ -79,4 +84,14 @@ class IndexController extends Controller
             return redirect()->back();
         }
     }
+
+
+
+    public function ProductDetails($id , $slug){
+        $product = Product::findOrFail($id);
+        $multi = MultiImg::where('product_id' , $id)->get();
+        return View('frontend.product.product_details', compact('product', 'multi'));
+    }
+
+
 }

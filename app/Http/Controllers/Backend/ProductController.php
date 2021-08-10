@@ -109,10 +109,10 @@ class ProductController extends Controller
 
     }
 
-    public function UpdateProduct(Request $request){
-        $product_id = $request->product_id;
+    public function UpdateProduct(Request $request, $id){
+       
 
-        Product::findOrFail($product_id)->update([
+        Product::findOrFail($id)->update([
             'brand_id' => $request->brand_id,
             'category_id' => $request->category_id,
             'subcategory_id' => $request->subcategory_id,
@@ -185,6 +185,8 @@ class ProductController extends Controller
     public function ThumbailImageUpdate(Request $request){
         $pro_id = $request->id;
         $old_img = $request->old_img;
+
+        if($image = $request->file('product_thumbnail')){
         
         unlink($old_img);
 
@@ -192,7 +194,6 @@ class ProductController extends Controller
         $image_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
         Image::make($image)->resize(917,1000)->save('uploads/products/Thumbnails/'.$image_gen);
         $save_url = 'uploads/products/Thumbnails/'.$image_gen;
-
         Product::findOrFail($pro_id)->update([
             'product_thumbnail' => $save_url,
             'updated_at' => Carbon::now(),
@@ -203,6 +204,17 @@ class ProductController extends Controller
         );
         return Redirect()->back()->with($notification);
 
+        }else{
+        Product::findOrFail($pro_id)->update([
+            
+            'updated_at' => Carbon::now(),
+        ]);
+        $notification = array(
+            'message' => 'Product Thumbnail Updated Successfully',
+            'alert-type' => 'success',
+        );
+        return Redirect()->back()->with($notification);
+    }
     }
 
 

@@ -97,7 +97,7 @@ Route::prefix('product')->group(function(){
     Route::post('/store', [ProductController::class, 'StoreProduct'])->name('product-store');
     Route::get('/manage', [ProductController::class, 'ManageProduct'])->name('manage-product');
     Route::get('/edit/{id}', [ProductController::class, 'EditProduct'])->name('product.edit');
-    Route::post('/data/update', [ProductController::class, 'UpdateProduct'])->name('product-update');
+    Route::post('/data/update/{id}', [ProductController::class, 'UpdateProduct'])->name('product-update');
     Route::post('/Image/update', [ProductController::class, 'MultiImageUpdate'])->name('product-update-images');
     Route::post('/thumbnail/update', [ProductController::class, 'ThumbailImageUpdate'])->name('product-update-thumbnail');
     Route::get('/multiimg/delete/{id}', [ProductController::class, 'MultiImageDelete'])->name('product.multiimg.delete');
@@ -132,7 +132,12 @@ Route::prefix('slider')->group(function(){
 Route::get('language/urdu' ,[LanguageController::class , 'Urdu'])->name('urdu.language');
 Route::get('language/english' ,[LanguageController::class , 'english'])->name('english.language');
 
+// ALL Products Deatils Routes
 
+Route::get('product/detail/{id}/{slug} ' ,[IndexController::class , 'ProductDetails']);
+
+
+// All Frontend Routes
 
 
 // User All Routes
