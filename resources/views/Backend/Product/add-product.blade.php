@@ -230,7 +230,7 @@
                                                 <h5>Product Color Ur<span class="text-danger">*</span></h5>
                                                 <div class="controls">
                                                     <input type="text" name="product_color_ur" class="form-control"
-                                                        value="red,green,blue" data-role="tagsinput" required="">
+                                                        value="" data-role="tagsinput" required="">
                                                     @error('product_color_ur')
                                                     <span class="text-danger">{{ $message }}</span>
                                                     @enderror

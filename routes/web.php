@@ -11,6 +11,7 @@ use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\LanguageController;
+use App\Http\Controllers\Frontend\CartController;
 
 
 /*
@@ -136,8 +137,27 @@ Route::get('language/english' ,[LanguageController::class , 'english'])->name('e
 
 Route::get('product/detail/{id}/{slug} ' ,[IndexController::class , 'ProductDetails']);
 
+// ALL Tagwise Products Routes
 
-// All Frontend Routes
+Route::get('product/tag/{tag} ' ,[IndexController::class , 'TagWiseProduct']);
+
+// ALL SubCategoryWise  Products Routes
+
+Route::get('subcategory/product/{subcat_id}/{slug} ' ,[IndexController::class , 'SubCatgeoryWiseProduct']);
+
+// ALL Sub-SubCategoryWise Products Routes
+
+Route::get('subsubcategory/product/{subcat_id}/{slug} ' ,[IndexController::class , 'SubSubCatgeoryWiseProduct']);
+
+// ALL Add To Cart Products Routes
+
+Route::get('/product/view/modal/{id}' , [IndexController::class , 'ProductViewAjax']);
+Route::post('/cart/data/store/{id}' ,[CartController::class , 'AddToCart']);
+Route::get('/product/mini/cart' ,[CartController::class , 'AddMiniCart']);
+Route::get('/minicart/product/remove/{rowId}' ,[CartController::class , 'MiniCartRemove']);
+
+
+// All Frontend Routes ends ///////
 
 
 // User All Routes

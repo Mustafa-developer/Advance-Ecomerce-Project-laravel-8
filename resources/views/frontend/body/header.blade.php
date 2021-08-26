@@ -118,34 +118,23 @@
                             data-toggle="dropdown">
                             <div class="items-cart-inner">
                                 <div class="basket"> <i class="glyphicon glyphicon-shopping-cart"></i> </div>
-                                <div class="basket-item-count"><span class="count">2</span></div>
-                                <div class="total-price-basket"> <span class="lbl">cart -</span> <span
-                                        class="total-price"> <span class="sign">$</span><span
-                                            class="value">600.00</span> </span> </div>
+                                <div class="basket-item-count"><span class="count" id="cartQty"></span></div>
+                                <div class="total-price-basket">
+                                    <span class="lbl">cart -</span>
+                                    <span class="total-price">
+                                        <span class="sign">$</span>
+                                        <span class="value" id="cartSubTotal"></span>
+                                    </span> </div>
                             </div>
                         </a>
                         <ul class="dropdown-menu">
                             <li>
-                                <div class="cart-item product-summary">
-                                    <div class="row">
-                                        <div class="col-xs-4">
-                                            <div class="image"> <a href="detail.html"><img
-                                                        src="{{asset('frontend/assets/images/cart.jpg')}}" alt=""></a>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-7">
-                                            <h3 class="name"><a href="index.php?page-detail">Simple Product</a></h3>
-                                            <div class="price">$600.00</div>
-                                        </div>
-                                        <div class="col-xs-1 action"> <a href="#"><i class="fa fa-trash"></i></a> </div>
-                                    </div>
+                                <div id="minicart">
+
                                 </div>
-                                <!-- /.cart-item -->
-                                <div class="clearfix"></div>
-                                <hr>
                                 <div class="clearfix cart-total">
-                                    <div class="pull-right"> <span class="text">Sub Total :</span><span
-                                            class='price'>$600.00</span> </div>
+                                    <div class="pull-right"> <span class="text">Sub Total :</span>
+                                        <span class='price' id="cartSubTotal"></span> </div>
                                     <div class="clearfix"></div>
                                     <a href="checkout.html"
                                         class="btn btn-upper btn-primary btn-block m-t-20">Checkout</a>
@@ -185,17 +174,18 @@
                         <div class="nav-outer">
                             <ul class="nav navbar-nav">
                                 <li class="active dropdown yamm-fw"> <a href="{{ url('/') }}" data-hover="dropdown"
-                                        class="dropdown-toggle" data-toggle="dropdown">@if(session()->get('language') == 'urdu') ہوم  @else Home @endif</a> </li>
+                                        class="dropdown-toggle" data-toggle="dropdown">@if(session()->get('language') ==
+                                        'urdu') ہوم @else Home @endif</a> </li>
                                 @php
                                 $categories = App\Models\Category::orderBy('category_name_en' ,'ASC')->get();
 
                                 @endphp
                                 @foreach($categories as $category)
                                 <li class="dropdown yamm mega-menu"> <a href="home.html" data-hover="dropdown"
-                                        class="dropdown-toggle"
-                                        data-toggle="dropdown">
-                                        @if(session()->get('language') == 'urdu') {{ $category->category_name_ur}}  @else {{ $category->category_name_en}} @endif
-                                        </a>
+                                        class="dropdown-toggle" data-toggle="dropdown">
+                                        @if(session()->get('language') == 'urdu') {{ $category->category_name_ur}} @else
+                                        {{ $category->category_name_en}} @endif
+                                    </a>
                                     <ul class="dropdown-menu container">
 
                                         @php
@@ -203,26 +193,36 @@
                                         $category->id)->orderBy('subcategory_name_en' , 'ASC')->get();
                                         @endphp
 
-                                        
+
                                         <li>
                                             <div class="yamm-content ">
                                                 <div class="row">
-                                                @foreach($subcategories as $subcategory)
+                                                    @foreach($subcategories as $subcategory)
                                                     <div class="col-xs-12 col-sm-6 col-md-2 col-menu">
-                                                        <h2 class="title">
-                                                        @if(session()->get('language') == 'urdu') {{ $subcategory->subcategory_name_ur }}  @else {{ $subcategory->subcategory_name_en }} @endif  
-                                                        </h2>
+                                                        <a
+                                                            href="{{url('subcategory/product/'.$subcategory->id.'/'.$subcategory->subcategory_slug_en)}}">
+                                                            <h2 class="title">
+                                                                @if(session()->get('language') == 'urdu')
+                                                                {{ $subcategory->subcategory_name_ur }} @else
+                                                                {{ $subcategory->subcategory_name_en }} @endif
+                                                            </h2>
+                                                        </a>
                                                         @php
-                                        $subsubcategories = App\Models\SubSubCategory::where('subcategory_id' ,
-                                        $subcategory->id)->orderBy('sub_subcategory_name_en' , 'ASC')->get();
-                                        @endphp
+                                                        $subsubcategories =
+                                                        App\Models\SubSubCategory::where('subcategory_id' ,
+                                                        $subcategory->id)->orderBy('sub_subcategory_name_en' ,
+                                                        'ASC')->get();
+                                                        @endphp
 
                                                         <ul class="links">
-                                                          @foreach($subsubcategories as $subcat)
-                                                            <li><a href="#">
-                                                            @if(session()->get('language') == 'urdu') {{ $subcat->sub_subcategory_name_ur }}  @else {{ $subcat->sub_subcategory_name_en }} @endif  
-                                                            </a></li>
-                                                          @endforeach                                                            
+                                                            @foreach($subsubcategories as $subcat)
+                                                            <li><a
+                                                                    href="{{url('subsubcategory/product/'.$subcat->id.'/'.$subcat->sub_subcategory_slug_en)}}">
+                                                                    @if(session()->get('language') == 'urdu')
+                                                                    {{ $subcat->sub_subcategory_name_ur }} @else
+                                                                    {{ $subcat->sub_subcategory_name_en }} @endif
+                                                                </a></li>
+                                                            @endforeach
                                                         </ul>
 
 
@@ -236,7 +236,7 @@
                                                     <!-- /.yamm-content -->
                                                 </div>
                                             </div>
-                                        </li>                                       
+                                        </li>
                                     </ul>
                                 </li>
                                 @endforeach
