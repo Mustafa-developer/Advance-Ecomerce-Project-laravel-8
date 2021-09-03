@@ -12,6 +12,8 @@ use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\LanguageController;
 use App\Http\Controllers\Frontend\CartController;
+use App\Http\Controllers\User\WishlistController;
+use App\Http\Controllers\User\CartPageController;
 
 
 /*
@@ -156,13 +158,32 @@ Route::post('/cart/data/store/{id}' ,[CartController::class , 'AddToCart']);
 Route::get('/product/mini/cart' ,[CartController::class , 'AddMiniCart']);
 Route::get('/minicart/product/remove/{rowId}' ,[CartController::class , 'MiniCartRemove']);
 
+// All Add To Wishlist Routes
+
+    Route::post('/add-to-wishlist/{product_id}',[CartController::class , 'AddToWishlist']);
+Route::group(['prefix'=>'user' , 'middleware'=>['user','auth'] , 'namespace'=>'User'] ,function(){
+    Route::get('/wishlist',[WishlistController::class , 'ViewWishlist'])->name('wishlist');
+    Route::get('/get-wishlist-product',[WishlistController::class , 'GetWishlistProduct']);
+    Route::get('/wishlist/remove/{id}',[WishlistController::class , 'wishlistRemove']);
+  
+});
+
+// All Cart View Page Routes
+    Route::get('/mycart',[CartPageController::class , 'MyCart'])->name('mycart');
+    Route::get('/user/get-cartpage-product',[CartPageController::class , 'GetCartProduct']);
+    Route::get('/user/cart/product/remove/{id}',[CartPageController::class , 'CartProductRemove']);
+    Route::get('/cart-increment/{id}',[CartPageController::class , 'CartIncrement']);
+    Route::get('/cart-decrement/{id}',[CartPageController::class , 'CartDecrement']);
+
+
+
 
 // All Frontend Routes ends ///////
 
 
 // User All Routes
 
-Route::middleware(['auth:sanctum,web', 'verified'])->get('/dashboard', function () {
+Route::middleware(['auth:sanctum,web', 'verified'])->get('/dashboard', function() {
     $id = Auth::user()->id;
         $users = User::find($id);
     return view('dashboard' ,compact('users'));

@@ -9,12 +9,12 @@
                         <li><a href="#"><i class="icon fa fa-user"></i>
                                 @if(session()->get('language') == 'urdu') میرا اکاونٹ @else My Account @endif
                             </a></li>
-                        <li><a href="#"><i class="icon fa fa-heart"></i>
+                        <li><a href="{{ route('wishlist') }}"><i class="icon fa fa-heart"></i>
                                 @if(session()->get('language') == 'urdu') وشلسٹ @else WishList @endif
                             </a></li>
-                        <li><a href="#"><i class="icon fa fa-shopping-cart"></i>
+                        <li><a href="{{ route('mycart') }}"><i class="icon fa fa-shopping-cart"></i>
                                 @if(session()->get('language') == 'urdu') مائی کرٹ @else My Cart @endif
-                                t</a></li>
+                                </a></li>
                         <li><a href="#"><i class="icon fa fa-check"></i>
                                 @if(session()->get('language') == 'urdu') چیک اوٹ @else Check out @endif
                             </a></li>
@@ -133,7 +133,7 @@
 
                                 </div>
                                 <div class="clearfix cart-total">
-                                    <div class="pull-right"> <span class="text">Sub Total :</span>
+                                    <div class="pull-right"> <span class="text">Sub Total :cart </span>
                                         <span class='price' id="cartSubTotal"></span> </div>
                                     <div class="clearfix"></div>
                                     <a href="checkout.html"
