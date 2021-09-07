@@ -9,6 +9,7 @@ use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\SliderController;
+use App\Http\Controllers\Backend\CouponController;
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\LanguageController;
 use App\Http\Controllers\Frontend\CartController;
@@ -114,6 +115,19 @@ Route::prefix('product')->group(function(){
 Route::prefix('slider')->group(function(){
     Route::get('/view' , [SliderController::class , 'SliderView'])->name('manage-slider');
     Route::post('/store' , [SliderController::class , 'SliderStore'])->name('store.slider');
+    Route::get('/edit/{id}' , [SliderController::class , 'SLiderEdit'])->name('slider.edit');
+    Route::post('/update/{id}' , [SliderController::class , 'SliderUpdate'])->name('slider.update');
+    Route::get('/inactive/{id}', [SliderController::class, 'SliderInActive'])->name('slider.inactive');
+    Route::get('/active/{id}', [SliderController::class, 'SliderActive'])->name('slider.active');
+    Route::get('/delete/{id}' , [SliderController::class , 'SliderDelete'])->name('slider.delete');
+
+});
+
+// All Coupon Routes
+
+Route::prefix('coupon')->group(function(){
+    Route::get('/view' , [CouponController::class , 'CouponView'])->name('manage-coupon');
+    Route::post('/store' , [CouponController::class , 'CouponStore'])->name('store.coupon');
     Route::get('/edit/{id}' , [SliderController::class , 'SLiderEdit'])->name('slider.edit');
     Route::post('/update/{id}' , [SliderController::class , 'SliderUpdate'])->name('slider.update');
     Route::get('/inactive/{id}', [SliderController::class, 'SliderInActive'])->name('slider.inactive');
