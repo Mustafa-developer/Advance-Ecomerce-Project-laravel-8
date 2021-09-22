@@ -75,3 +75,4 @@ class CouponController extends Controller
         return Redirect()->route('manage-coupon')->with($notification);
     }
 }
+
