@@ -11,7 +11,6 @@ use Carbon\Carbon;
 
 class CouponController extends Controller
 {
-    //
     public function CouponView(){
         $coupons = Coupon::orderBy('id','DESC')->get();
         return view('Backend.Coupon.view_coupon' , compact('coupons'));

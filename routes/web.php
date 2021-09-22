@@ -10,7 +10,10 @@ use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\CouponController;
+<<<<<<< HEAD
 use App\Http\Controllers\Backend\ShippingController;
+=======
+>>>>>>> a0b402d16655456ed68d58f1b2999e62c658e4f1
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\LanguageController;
 use App\Http\Controllers\Frontend\CartController;
@@ -129,6 +132,7 @@ Route::prefix('slider')->group(function(){
 Route::prefix('coupon')->group(function(){
     Route::get('/view' , [CouponController::class , 'CouponView'])->name('manage-coupon');
     Route::post('/store' , [CouponController::class , 'CouponStore'])->name('store.coupon');
+<<<<<<< HEAD
     Route::get('/edit/{id}' , [CouponController::class , 'CouponEdit'])->name('coupon.edit');
     Route::post('/update/{id}' , [CouponController::class , 'CouponUpdate'])->name('coupon.update');
     Route::get('/delete/{id}' , [CouponController::class , 'CouponDelete'])->name('coupon.delete');
@@ -171,6 +175,16 @@ Route::prefix('shipping')->group(function(){
  
 });
 
+=======
+    Route::get('/edit/{id}' , [SliderController::class , 'SLiderEdit'])->name('slider.edit');
+    Route::post('/update/{id}' , [SliderController::class , 'SliderUpdate'])->name('slider.update');
+    Route::get('/inactive/{id}', [SliderController::class, 'SliderInActive'])->name('slider.inactive');
+    Route::get('/active/{id}', [SliderController::class, 'SliderActive'])->name('slider.active');
+    Route::get('/delete/{id}' , [SliderController::class , 'SliderDelete'])->name('slider.delete');
+
+});
+
+>>>>>>> a0b402d16655456ed68d58f1b2999e62c658e4f1
 
 
 
