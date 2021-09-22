@@ -103,7 +103,6 @@ $route = Route::current()->getName();
             
           </ul>
         </li> 
-<<<<<<< HEAD
 
         <li class="treeview {{ ($prefix == '/shipping') ? 'active' : '' }}">
           <a href="#">
@@ -121,8 +120,6 @@ $route = Route::current()->getName();
             
           </ul>
         </li> 
-=======
->>>>>>> a0b402d16655456ed68d58f1b2999e62c658e4f1
 		 
         <li class="header nav-small-cap">User Interface</li>
 		  
