@@ -50,15 +50,10 @@
                                         </td>
 
                                         <td style="width:30%">
-<<<<<<< HEAD
+                                         
                                             <a href="{{ route('coupon.edit' , $item->id) }}" class="btn btn-info"
                                                 title="Edit-Data"><i class="fa fa-pencil"></i></a>
                                             <a href="{{ route('coupon.delete' , $item->id) }}" id="delete"
-=======
-                                            <a href="{{ route('category.edit' , $item->id) }}" class="btn btn-info"
-                                                title="Edit-Data"><i class="fa fa-pencil"></i></a>
-                                            <a href="{{ route('category.delete' , $item->id) }}" id="delete"
->>>>>>> a0b402d16655456ed68d58f1b2999e62c658e4f1
                                                 class="btn btn-danger" title="Delete-Data"><i
                                                     class="fa fa-trash"></i></a>
                                         </td>

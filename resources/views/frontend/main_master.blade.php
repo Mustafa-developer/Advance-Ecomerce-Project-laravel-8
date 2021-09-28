@@ -551,7 +551,10 @@
                 url: '/user/cart/product/remove/' + id,
                 dataType: 'json',
                 success: function(data) {
-
+                    CouponCalculate();
+                $('#couponfield').show();
+                $('#coupon_code').val('');
+                
                     cartpage();
                     miniCart();
                     
@@ -605,8 +608,10 @@ function CartIncrement(rowId){
             url : '/cart-increment/'+rowId,
             dataType : 'json',
             success:function(data){
+                CouponCalculate()
                 cartpage();
                 miniCart();
+                
             }
         })
     }
@@ -620,8 +625,10 @@ function CartDecrement(rowId){
             url : '/cart-decrement/'+rowId,
             dataType : 'json',
             success:function(data){
+                CouponCalculate()
                 cartpage();
                 miniCart();
+                
             }
         })
     }
@@ -642,7 +649,8 @@ function CartDecrement(rowId){
             dataType : 'json',
             data : { coupon_code:coupon_code },
             success:function(data){
-
+                CouponCalculate();
+                $('#couponfield').hide();
                 
                     // Start Message
                     const Toast = Swal.mixin({
@@ -703,13 +711,12 @@ function CartDecrement(rowId){
                                         <div class="cart-sub-total">
                                             Subtotal<span class="inner-left-md"> $ ${data.subtotal} </span>
                                         </div>
-
-                                        <div class="cart-grand-total">
-                                            Counpon Name<span class="inner-left-md">$ ${data.coupon_name}</span>
+                                        <div class="cart-sub-total">
+                                            Coupon<span class="inner-left-md"> ${data.coupon_name} </span>
+                                            <button type="submit" onclick="couponRemove()"><i class="fa fa-times"></i></button>
                                         </div>
-
-                                        <div class="cart-grand-total">
-                                            Counpon Name<span class="inner-left-md">$ ${data.discount_amount}</span>
+                                        <div class="cart-sub-total">
+                                            Discount Amount<span class="inner-left-md"> $ ${data.discount_amount} </span>
                                         </div>
 
                                         <div class="cart-grand-total">
@@ -723,9 +730,51 @@ function CartDecrement(rowId){
                     }
                 })
             }
+            
             CouponCalculate();
         </script>
 <!-- Coupon Calculate -->
+
+<!-- Coupon Remove  -->
+<script>
+    function couponRemove(){
+        $.ajax({
+            type : 'GET',
+            url : "{{ url( '/coupon-remove' ) }}",
+            dataType : 'json',
+            success:function(data){
+                CouponCalculate();
+                $('#couponfield').show();
+                $('#coupon_code').val('');
+                     // Start Message
+                     const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        
+                        showConfirmButton: false,
+                        timer: 3000
+                    })
+
+                    if ($.isEmptyObject(data.error)) {
+                        Toast.fire({
+                            type: 'success',
+                            icon: 'success',
+                            title: data.success
+                        })
+                    } else {
+                        Toast.fire({
+                            type: 'error',
+                            icon: 'error',
+                            title: data.error
+                        })
+                    }
+                    // End Message
+
+            }
+        })
+    }
+</script>
+<!-- Coupon Remove  -->
 
 
 

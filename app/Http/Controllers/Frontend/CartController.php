@@ -19,6 +19,10 @@ class CartController extends Controller
     public function AddToCart(Request $request , $id){
         $product = Product::findOrFail($id);
 
+        if(Session::has('coupon')){
+            Session::forget('coupon');
+        }
+
         if($product->discount_price == NULL){
             Cart::add([
                 'id' => $id,
@@ -125,13 +129,20 @@ class CartController extends Controller
                 'coupon_name' => session()->get('coupon')['coupon_name'],
                 'coupon_discount' => session()->get('coupon')['coupon_discount'],
                 'discount_amount' => session()->get('coupon')['discount_amount'],
-                'total' => session()->get('coupon')['total_amount']
+                'total_amount' => session()->get('coupon')['total_amount']
             ));
         }else{
             return response()->json(array(
                 'total' => Cart::total(),
             ));
         }
+    }
+
+    public function Coupon_remove(){
+        Session::forget('coupon');
+        return response()->json(array(
+            'success' => 'Coupon Remove Successfully'
+        ));
     }
 
 }

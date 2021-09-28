@@ -51,7 +51,7 @@ Cart Page
                         @else
 
                         
-                        <table class="table">
+                        <table class="table" id="couponfield">
                             <thead>
                                 <tr>
                                     <th>

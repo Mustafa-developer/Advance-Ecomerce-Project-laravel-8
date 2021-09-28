@@ -229,6 +229,7 @@ Route::group(['prefix'=>'user' , 'middleware'=>['user','auth'] , 'namespace'=>'U
 
 Route::post('/coupon_apply',[CartController::class , 'Coupon_apply']);
 Route::get('/coupon_calculation',[CartController::class , 'Coupon_calc']);
+Route::get('/coupon-remove',[CartController::class , 'Coupon_remove']);
 
 // All Frontend Routes ends ///////
 
